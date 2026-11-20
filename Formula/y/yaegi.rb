@@ -1,8 +1,8 @@
 class Yaegi < Formula
   desc "Yet another elegant Go interpreter"
   homepage "https://github.com/traefik/yaegi"
-  url "https://github.com/traefik/yaegi/archive/refs/tags/v0.16.3.tar.gz"
-  sha256 "1fca3442639e2f25fffc6d6cf104dd33a9c0951d32bf8b958ed6e2e979d32d1d"
+  url "https://github.com/traefik/yaegi/archive/refs/tags/v2.0.0.tar.gz"
+  sha256 "ac1e4e7c38a7f2911ca0b7786caaa8998d2ca7f301cfaf3cca536b256af492e1"
   license "Apache-2.0"
   head "https://github.com/traefik/yaegi.git", branch: "master"
 
@@ -17,6 +17,10 @@ class Yaegi < Formula
   depends_on "go" => :build
 
   deny_network_access!
+
+  def fetch
+    system "go", "mod", "download"
+  end
 
   def install
     system "go", "build", *std_go_args(ldflags: "-X main.version=#{version}"), "./cmd/yaegi"
